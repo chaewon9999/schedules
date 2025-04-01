@@ -3,6 +3,8 @@ package com.example.schedules.dto.schedule;
 import com.example.schedules.entity.Schedule;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class ScheduleResponseDto {
 
@@ -14,11 +16,14 @@ public class ScheduleResponseDto {
 
     private final String username;
 
-    public ScheduleResponseDto(Long id, String title, String contents, String username) {
+    private final LocalDateTime createTime;
+
+    public ScheduleResponseDto(Long id, String title, String contents, String username, LocalDateTime createTime) {
         this.id = id;
         this.title = title;
         this.contents = contents;
         this.username = username;
+        this.createTime = createTime;
     }
 
     public static ScheduleResponseDto allDto(Schedule schedule) {
@@ -26,7 +31,8 @@ public class ScheduleResponseDto {
                 schedule.getId(),
                 schedule.getTitle(),
                 schedule.getContents(),
-                schedule.getUsername()
+                schedule.getUsername(),
+                schedule.getCreatedAt()
         );
     }
 }

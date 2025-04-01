@@ -37,7 +37,8 @@ public class ScheduleService {
                 savedSchedule.getId(),
                 savedSchedule.getTitle(),
                 savedSchedule.getContents(),
-                savedSchedule.getUsername()
+                savedSchedule.getUsername(),
+                savedSchedule.getCreatedAt()
         );
     }
 
@@ -61,7 +62,8 @@ public class ScheduleService {
                 findSchedule.getId(),
                 findSchedule.getTitle(),
                 findSchedule.getContents(),
-                findSchedule.getUsername()
+                findSchedule.getUsername(),
+                findSchedule.getCreatedAt()
         );
     }
 
@@ -76,12 +78,14 @@ public class ScheduleService {
         );
 
         schedule.update(requestDto.getTitle(), requestDto.getContents(), requestDto.getUsername());
+        scheduleRepository.save(schedule);
 
         return new ScheduleResponseDto(
                 schedule.getId(),
                 schedule.getTitle(),
                 schedule.getContents(),
-                schedule.getUsername()
+                schedule.getUsername(),
+                schedule.getUpdatedAt()
         );
     }
 

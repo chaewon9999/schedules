@@ -19,6 +19,6 @@ public class UserService {
 
         User savedUser = userRepository.save(user);
 
-        return new UserResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail());
+        return new UserResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail(), savedUser.getCreatedAt());
     }
 }
