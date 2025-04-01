@@ -12,6 +12,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    //회원 가입
     public UserResponseDto signUp(String username, String password, String email) {
 
         User user = new User(username, password, email);

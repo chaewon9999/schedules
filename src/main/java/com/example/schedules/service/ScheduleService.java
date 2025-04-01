@@ -8,6 +8,8 @@ import com.example.schedules.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -29,5 +31,13 @@ public class ScheduleService {
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
         return new ScheduleResponseDto(savedSchedule.getId(), savedSchedule.getTitle(), savedSchedule.getContents(), savedSchedule.getUsername());
+    }
+
+    //전체 조회
+    public List<ScheduleResponseDto> findAll() {
+        return scheduleRepository.findAll()
+                .stream()
+                .map(ScheduleResponseDto::allDto)
+                .toList();
     }
 }
