@@ -2,7 +2,6 @@ package com.example.schedules.controller;
 
 import com.example.schedules.dto.schedule.ScheduleRequestDto;
 import com.example.schedules.dto.schedule.ScheduleResponseDto;
-import com.example.schedules.entity.Schedule;
 import com.example.schedules.service.ScheduleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +16,7 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
+    // 할일 생성
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> save(@Valid @RequestBody ScheduleRequestDto requestDto) {
 

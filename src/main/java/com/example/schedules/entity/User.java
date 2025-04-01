@@ -16,17 +16,17 @@ public class User extends LocalTimeEntity{
     private String username;
 
     @Column(nullable = false)
-    private String email;
+    private String password;
 
     @Column(nullable = false)
-    private String password;
+    private String email;
 
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String password, String email) {
         this.username = username;
-        this.email = email;
         this.password = password;
+        this.email = email;
     }
 }

@@ -9,13 +9,13 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByName(String username);
+    Optional<User> findByUsername(String username);
 
     default User findByNameOrElseThrow(String username) {
-        return findByName(username).orElseThrow(() ->
+        return findByUsername(username).orElseThrow(() ->
                 new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "존재하지 않는 아이디입니다."
+                        "does not exists username = " + username
                 )
         );
     }

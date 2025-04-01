@@ -15,6 +15,10 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
 
+    /**
+     * 할일 생성
+     * user 레파지토리를 통해 등록되어있는 유저인지 검증 후 등록되지 않는 회원이라면 로그인 화면 유도
+     */
     public ScheduleResponseDto save(String title, String contents, String username) {
 
         User findUser = userRepository.findByNameOrElseThrow(username);

@@ -11,7 +11,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
         return findById(id).orElseThrow(() ->
                 new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "존재하지 않는 아이디입니다."
+                        "Does not exists id = " + id
                 )
         );
     }

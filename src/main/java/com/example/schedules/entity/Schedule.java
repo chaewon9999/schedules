@@ -2,6 +2,7 @@ package com.example.schedules.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Entity
@@ -21,6 +22,7 @@ public class Schedule extends LocalTimeEntity{
     @Column(nullable = false)
     private String username;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -34,7 +36,4 @@ public class Schedule extends LocalTimeEntity{
         this.username = username;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
