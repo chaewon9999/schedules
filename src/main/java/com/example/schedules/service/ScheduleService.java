@@ -1,5 +1,6 @@
 package com.example.schedules.service;
 
+import com.example.schedules.dto.schedule.ScheduleRequestDto;
 import com.example.schedules.dto.schedule.ScheduleResponseDto;
 import com.example.schedules.entity.Schedule;
 import com.example.schedules.entity.User;
@@ -32,7 +33,12 @@ public class ScheduleService {
 
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
-        return new ScheduleResponseDto(savedSchedule.getId(), savedSchedule.getTitle(), savedSchedule.getContents(), savedSchedule.getUsername());
+        return new ScheduleResponseDto(
+                savedSchedule.getId(),
+                savedSchedule.getTitle(),
+                savedSchedule.getContents(),
+                savedSchedule.getUsername()
+        );
     }
 
     //전체 조회
@@ -57,5 +63,37 @@ public class ScheduleService {
                 findSchedule.getContents(),
                 findSchedule.getUsername()
         );
+    }
+
+    //할일 수정
+    public ScheduleResponseDto update(Long id, ScheduleRequestDto requestDto) {
+
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Does not exists id = " + id
+                )
+        );
+
+        schedule.update(requestDto.getTitle(), requestDto.getContents(), requestDto.getUsername());
+
+        return new ScheduleResponseDto(
+                schedule.getId(),
+                schedule.getTitle(),
+                schedule.getContents(),
+                schedule.getUsername()
+        );
+    }
+
+    //할일 삭제
+    public void delete(Long id) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Does not exists id = " + id
+                )
+        );
+
+        scheduleRepository.delete(schedule);
     }
 }

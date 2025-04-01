@@ -36,4 +36,10 @@ public class Schedule extends LocalTimeEntity{
         this.username = username;
     }
 
+    public void update(String title, String contents, String username) {
+        this.title = title;
+        this.contents = contents;
+        this.username = username;
+    }
+
 }
