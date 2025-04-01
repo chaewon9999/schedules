@@ -6,7 +6,9 @@ import com.example.schedules.entity.User;
 import com.example.schedules.repository.ScheduleRepository;
 import com.example.schedules.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -39,5 +41,21 @@ public class ScheduleService {
                 .stream()
                 .map(ScheduleResponseDto::allDto)
                 .toList();
+    }
+
+    //특정 id로 조회
+    public ScheduleResponseDto findById(Long id) {
+        Schedule findSchedule = scheduleRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Does not exists id = " + id
+                ));
+
+        return new ScheduleResponseDto(
+                findSchedule.getId(),
+                findSchedule.getTitle(),
+                findSchedule.getContents(),
+                findSchedule.getUsername()
+        );
     }
 }
