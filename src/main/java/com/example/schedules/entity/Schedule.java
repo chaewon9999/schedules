@@ -8,7 +8,6 @@ import lombok.Getter;
 @Table(name = "schedule")
 public class Schedule extends LocalTimeEntity{
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,12 +17,24 @@ public class Schedule extends LocalTimeEntity{
 
     @Column(nullable = false)
     private String contents;
+    
+    @Column(nullable = false)
+    private String username;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Schedule() {
     }
 
-    public Schedule(String title, String contents) {
+    public Schedule(String title, String contents, String username) {
         this.title = title;
         this.contents = contents;
+        this.username = username;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

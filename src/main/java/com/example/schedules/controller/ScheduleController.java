@@ -2,24 +2,31 @@ package com.example.schedules.controller;
 
 import com.example.schedules.dto.schedule.ScheduleRequestDto;
 import com.example.schedules.dto.schedule.ScheduleResponseDto;
+import com.example.schedules.entity.Schedule;
+import com.example.schedules.service.ScheduleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/schedules")
 @RequiredArgsConstructor
 public class ScheduleController {
 
-    @PostMapping
-    public ResponseEntity<ScheduleResponseDto> save(@Valid @PathVariable ScheduleRequestDto dto) {
+    private final ScheduleService scheduleService;
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<ScheduleResponseDto> save(@Valid @RequestBody ScheduleRequestDto requestDto) {
+
+        ScheduleResponseDto responseDto = scheduleService.save(
+                requestDto.getTitle(),
+                requestDto.getContents(),
+                requestDto.getUsername()
+        );
+
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
 }
