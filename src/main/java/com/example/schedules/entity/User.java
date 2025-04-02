@@ -1,5 +1,6 @@
 package com.example.schedules.entity;
 
+import com.example.schedules.dto.user.UserRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -28,5 +29,11 @@ public class User extends LocalTimeEntity{
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public void update(UserRequestDto requestDto) {
+        this.username = requestDto.getUsername();
+        this.password = requestDto.getPassword();
+        this.email = requestDto.getEmail();
     }
 }

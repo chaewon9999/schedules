@@ -1,6 +1,7 @@
 package com.example.schedules.service;
 
 import com.example.schedules.dto.schedule.ScheduleResponseDto;
+import com.example.schedules.dto.user.UserRequestDto;
 import com.example.schedules.dto.user.UserResponseDto;
 import com.example.schedules.entity.User;
 import com.example.schedules.repository.UserRepository;
@@ -27,6 +28,7 @@ public class UserService {
         return new UserResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail(), savedUser.getCreatedAt());
     }
 
+    //유저 전체 조회
     public List<UserResponseDto> findAll() {
         return userRepository.findAll()
                 .stream()
@@ -34,6 +36,7 @@ public class UserService {
                 .toList();
     }
 
+    //특정 유저 조회
     public UserResponseDto findById(Long id) {
 
         User user = userRepository.findById(id).orElseThrow(() ->
@@ -47,6 +50,26 @@ public class UserService {
                 user.getUsername(),
                 user.getEmail(),
                 user.getCreatedAt()
+        );
+    }
+
+    //유저 정보 수정
+    public UserResponseDto update(Long id, UserRequestDto requestDto) {
+
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Does not exists id = " + id
+                )
+        );
+
+        user.update(requestDto);
+
+        return new UserResponseDto(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getUpdatedAt()
         );
     }
 }

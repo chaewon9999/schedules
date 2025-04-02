@@ -50,4 +50,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //유저 정보 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponseDto> update(@PathVariable Long id, @RequestBody UserRequestDto requestDto) {
+
+        UserResponseDto updatedUser = userService.update(id, requestDto);
+
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
 }
