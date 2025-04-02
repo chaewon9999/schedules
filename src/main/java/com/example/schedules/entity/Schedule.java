@@ -19,9 +19,6 @@ public class Schedule extends LocalTimeEntity{
 
     @Column(nullable = false)
     private String contents;
-    
-    @Column(nullable = false)
-    private String username;
 
     @Setter
     @ManyToOne
@@ -34,13 +31,11 @@ public class Schedule extends LocalTimeEntity{
     public Schedule(ScheduleRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
-        this.username = requestDto.getUsername();
     }
 
     public void update(ScheduleRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
-        this.username = requestDto.getUsername();
     }
 
 }

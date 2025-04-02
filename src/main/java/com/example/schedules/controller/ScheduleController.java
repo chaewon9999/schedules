@@ -47,10 +47,7 @@ public class ScheduleController {
 
     //특정 id 수정
     @PutMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> update(
-            @PathVariable Long id,
-            @Valid @RequestBody ScheduleRequestDto requestDto)
-    {
+    public ResponseEntity<ScheduleResponseDto> update(@PathVariable Long id, @Valid @RequestBody ScheduleRequestDto requestDto) {
 
         ScheduleResponseDto updatedSchedule = scheduleService.update(id, requestDto);
 

@@ -26,7 +26,7 @@ public class ScheduleService {
      */
     public ScheduleResponseDto save(ScheduleRequestDto requestDto) {
 
-        User findUser = userRepository.findByNameOrElseThrow(requestDto.getUsername());
+        User findUser = userRepository.findByIdOrElseThrow(requestDto.getUserId());
 
         Schedule schedule = new Schedule(requestDto);
         schedule.setUser(findUser);
