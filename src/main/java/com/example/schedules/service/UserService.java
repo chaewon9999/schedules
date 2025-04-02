@@ -1,6 +1,5 @@
 package com.example.schedules.service;
 
-import com.example.schedules.dto.schedule.ScheduleResponseDto;
 import com.example.schedules.dto.user.UserRequestDto;
 import com.example.schedules.dto.user.UserResponseDto;
 import com.example.schedules.entity.User;
@@ -19,13 +18,13 @@ public class UserService {
     private final UserRepository userRepository;
 
     //유저 생성
-    public UserResponseDto signUp(String username, String password, String email) {
+    public UserResponseDto signUp(UserRequestDto requestDto) {
 
-        User user = new User(username, password, email);
+        User user = new User(requestDto);
 
         User savedUser = userRepository.save(user);
 
-        return new UserResponseDto(savedUser.getId(), savedUser.getUsername(), savedUser.getEmail(), savedUser.getCreatedAt());
+        return new UserResponseDto(savedUser);
     }
 
     //유저 전체 조회
@@ -45,12 +44,7 @@ public class UserService {
                         "Dose not exists id = " + id
                 ));
 
-        return new UserResponseDto(
-                user.getId(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getCreatedAt()
-        );
+        return new UserResponseDto(user);
     }
 
     //유저 정보 수정
@@ -66,14 +60,10 @@ public class UserService {
         user.update(requestDto);
         userRepository.save(user);
 
-        return new UserResponseDto(
-                user.getId(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getUpdatedAt()
-        );
+        return new UserResponseDto(user);
     }
 
+    //유저 삭제
     public void delete(Long id) {
 
         User user = userRepository.findById(id).orElseThrow(() ->

@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,22 +24,16 @@ public class ScheduleService {
      * 할일 생성
      * user 레파지토리를 통해 등록되어있는 유저인지 검증 후 등록되지 않는 회원이라면 로그인 유도
      */
-    public ScheduleResponseDto save(String title, String contents, String username, LocalDateTime time) {
+    public ScheduleResponseDto save(ScheduleRequestDto requestDto) {
 
-        User findUser = userRepository.findByNameOrElseThrow(username);
+        User findUser = userRepository.findByNameOrElseThrow(requestDto.getUsername());
 
-        Schedule schedule = new Schedule(title, contents, username);
+        Schedule schedule = new Schedule(requestDto);
         schedule.setUser(findUser);
 
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
-        return new ScheduleResponseDto(
-                savedSchedule.getId(),
-                savedSchedule.getTitle(),
-                savedSchedule.getContents(),
-                savedSchedule.getUsername(),
-                savedSchedule.getCreatedAt()
-        );
+        return new ScheduleResponseDto(savedSchedule);
     }
 
     //전체 조회
@@ -59,13 +52,7 @@ public class ScheduleService {
                         "Does not exists id = " + id
                 ));
 
-        return new ScheduleResponseDto(
-                findSchedule.getId(),
-                findSchedule.getTitle(),
-                findSchedule.getContents(),
-                findSchedule.getUsername(),
-                findSchedule.getCreatedAt()
-        );
+        return new ScheduleResponseDto(findSchedule);
     }
 
     //할일 수정
@@ -78,16 +65,10 @@ public class ScheduleService {
                 )
         );
 
-        schedule.update(requestDto.getTitle(), requestDto.getContents(), requestDto.getUsername());
+        schedule.update(requestDto);
         scheduleRepository.save(schedule);
 
-        return new ScheduleResponseDto(
-                schedule.getId(),
-                schedule.getTitle(),
-                schedule.getContents(),
-                schedule.getUsername(),
-                schedule.getUpdatedAt()
-        );
+        return new ScheduleResponseDto(schedule);
     }
 
     //할일 삭제

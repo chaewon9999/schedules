@@ -18,21 +18,15 @@ public class ScheduleResponseDto {
 
     private final LocalDateTime createTime;
 
-    public ScheduleResponseDto(Long id, String title, String contents, String username, LocalDateTime createTime) {
-        this.id = id;
-        this.title = title;
-        this.contents = contents;
-        this.username = username;
-        this.createTime = createTime;
+    public ScheduleResponseDto(Schedule schedule) {
+        this.id = schedule.getId();
+        this.title = schedule.getTitle();
+        this.contents = schedule.getContents();
+        this.username = schedule.getUsername();
+        this.createTime = schedule.getCreatedAt();
     }
 
     public static ScheduleResponseDto allDto(Schedule schedule) {
-        return new ScheduleResponseDto(
-                schedule.getId(),
-                schedule.getTitle(),
-                schedule.getContents(),
-                schedule.getUsername(),
-                schedule.getCreatedAt()
-        );
+        return new ScheduleResponseDto(schedule);
     }
 }

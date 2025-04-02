@@ -22,12 +22,7 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> save(@Valid @RequestBody ScheduleRequestDto requestDto) {
 
-        ScheduleResponseDto responseDto = scheduleService.save(
-                requestDto.getTitle(),
-                requestDto.getContents(),
-                requestDto.getUsername(),
-                requestDto.getTime()
-        );
+        ScheduleResponseDto responseDto = scheduleService.save(requestDto);
 
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
@@ -35,6 +30,7 @@ public class ScheduleController {
     //전체 조회
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findAll() {
+
         List<ScheduleResponseDto> scheduleResponseDtoList = scheduleService.findAll();
 
         return new ResponseEntity<>(scheduleResponseDtoList, HttpStatus.OK);
@@ -51,7 +47,10 @@ public class ScheduleController {
 
     //특정 id 수정
     @PutMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> update(@PathVariable Long id,@Valid @RequestBody ScheduleRequestDto requestDto) {
+    public ResponseEntity<ScheduleResponseDto> update(
+            @PathVariable Long id,
+            @Valid @RequestBody ScheduleRequestDto requestDto)
+    {
 
         ScheduleResponseDto updatedSchedule = scheduleService.update(id, requestDto);
 

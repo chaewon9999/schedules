@@ -16,20 +16,14 @@ public class UserResponseDto {
 
     private final LocalDateTime time;
 
-    public UserResponseDto(Long id, String username, String email, LocalDateTime time) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.time = time;
+    public UserResponseDto(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.time = user.getCreatedAt();
     }
 
     public static UserResponseDto allDto(User user) {
-
-        return new UserResponseDto(
-                user.getId(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getCreatedAt()
-        );
+        return new UserResponseDto(user);
     }
 }

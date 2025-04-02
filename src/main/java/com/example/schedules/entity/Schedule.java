@@ -1,5 +1,6 @@
 package com.example.schedules.entity;
 
+import com.example.schedules.dto.schedule.ScheduleRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,16 +31,16 @@ public class Schedule extends LocalTimeEntity{
     public Schedule() {
     }
 
-    public Schedule(String title, String contents, String username) {
-        this.title = title;
-        this.contents = contents;
-        this.username = username;
+    public Schedule(ScheduleRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.contents = requestDto.getContents();
+        this.username = requestDto.getUsername();
     }
 
-    public void update(String title, String contents, String username) {
-        this.title = title;
-        this.contents = contents;
-        this.username = username;
+    public void update(ScheduleRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.contents = requestDto.getContents();
+        this.username = requestDto.getUsername();
     }
 
 }
