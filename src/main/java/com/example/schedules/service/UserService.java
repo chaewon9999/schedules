@@ -64,6 +64,7 @@ public class UserService {
         );
 
         user.update(requestDto);
+        userRepository.save(user);
 
         return new UserResponseDto(
                 user.getId(),
@@ -71,5 +72,17 @@ public class UserService {
                 user.getEmail(),
                 user.getUpdatedAt()
         );
+    }
+
+    public void delete(Long id) {
+
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Does not exists id = " + id
+                )
+        );
+
+        userRepository.delete(user);
     }
 }

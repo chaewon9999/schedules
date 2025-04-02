@@ -47,7 +47,7 @@ public class UserController {
 
         UserResponseDto findedById = userService.findById(id);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(findedById, HttpStatus.OK);
     }
 
     //유저 정보 수정
@@ -57,5 +57,12 @@ public class UserController {
         UserResponseDto updatedUser = userService.update(id, requestDto);
 
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
+
+    //유저 정보 삭제
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+
+        userService.delete(id);
     }
 }
