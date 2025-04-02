@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Locale;
 
 @RestController
@@ -31,5 +32,22 @@ public class UserController {
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
+    //전체 유저 조회
+    @GetMapping
+    public ResponseEntity<List<UserResponseDto>> findAll() {
+
+        List<UserResponseDto> findAllUser = userService.findAll();
+
+        return new ResponseEntity<>(findAllUser,HttpStatus.OK);
+    }
+
+    //특정 유저 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDto> findById(@PathVariable Long id) {
+
+        UserResponseDto findedById = userService.findById(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

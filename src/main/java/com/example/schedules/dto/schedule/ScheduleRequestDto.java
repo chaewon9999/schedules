@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class ScheduleRequestDto {
 
@@ -16,9 +18,12 @@ public class ScheduleRequestDto {
 
     private final String username;
 
-    public ScheduleRequestDto(String title, String contents, String username) {
+    private final LocalDateTime time;
+
+    public ScheduleRequestDto(String title, String contents, String username, LocalDateTime time) {
         this.title = title;
         this.contents = contents;
         this.username = username;
+        this.time = time;
     }
 }

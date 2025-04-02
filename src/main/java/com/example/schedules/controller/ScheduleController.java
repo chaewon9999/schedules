@@ -25,7 +25,8 @@ public class ScheduleController {
         ScheduleResponseDto responseDto = scheduleService.save(
                 requestDto.getTitle(),
                 requestDto.getContents(),
-                requestDto.getUsername()
+                requestDto.getUsername(),
+                requestDto.getTime()
         );
 
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);

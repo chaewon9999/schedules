@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,9 +23,9 @@ public class ScheduleService {
 
     /**
      * 할일 생성
-     * user 레파지토리를 통해 등록되어있는 유저인지 검증 후 등록되지 않는 회원이라면 로그인 화면 유도
+     * user 레파지토리를 통해 등록되어있는 유저인지 검증 후 등록되지 않는 회원이라면 로그인 유도
      */
-    public ScheduleResponseDto save(String title, String contents, String username) {
+    public ScheduleResponseDto save(String title, String contents, String username, LocalDateTime time) {
 
         User findUser = userRepository.findByNameOrElseThrow(username);
 
