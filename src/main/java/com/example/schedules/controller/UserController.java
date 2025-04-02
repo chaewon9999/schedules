@@ -1,8 +1,10 @@
 package com.example.schedules.controller;
 
+import com.example.schedules.dto.user.LoginRequestDto;
 import com.example.schedules.dto.user.UserRequestDto;
 import com.example.schedules.dto.user.UserResponseDto;
 import com.example.schedules.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,12 +21,23 @@ public class UserController {
     private final UserService userService;
 
     //유저 생성
-    @PostMapping
+    @PostMapping("/signUp")
     public ResponseEntity<UserResponseDto> signup(@Valid @RequestBody UserRequestDto requestDto) {
 
         UserResponseDto savedUser = userService.signUp(requestDto);
 
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
+
+    //로그인
+    @PostMapping("/login")
+    public ResponseEntity<UserResponseDto> login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletRequest httpRequest) {
+
+        UserResponseDto responseDto = userService.login(requestDto);
+
+        httpRequest.getSession().setAttribute("userId", responseDto.getId());
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     //전체 유저 조회

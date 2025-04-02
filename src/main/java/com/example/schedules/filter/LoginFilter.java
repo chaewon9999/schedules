@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class LoginFilter implements Filter {
 
-    private static final String[] WHITE_LIST = {"/", "/users/signUp", "/login", "/logout"};
+    private static final String[] WHITE_LIST = {"/", "/users/signUp", "/users/login", "/users/logout"};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -24,8 +24,8 @@ public class LoginFilter implements Filter {
 
             HttpSession session = httpRequest.getSession(false);
 
-            if (session == null || session.getAttribute("sessionkey") == null) {
-                throw new RuntimeException("로그인을 해주세요");
+            if (session == null || session.getAttribute("userId") == null) {
+                throw new RuntimeException("로그인 해주세요");
             }
         }
 
