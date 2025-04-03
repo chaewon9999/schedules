@@ -4,15 +4,12 @@ import com.example.schedules.dto.user.LoginRequestDto;
 import com.example.schedules.dto.user.UserRequestDto;
 import com.example.schedules.dto.user.UserResponseDto;
 import com.example.schedules.entity.User;
+import com.example.schedules.exception.customException.InvalidPasswordException;
 import com.example.schedules.repository.UserRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,10 +33,7 @@ public class UserService {
         User user = userRepository.findByEmailOrElseThrow(requestDto.getEmail());
 
         if (!user.getPassword().equals(requestDto.getPassword())) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "잘못된 비밀번호입니다."
-            );
+            throw new InvalidPasswordException("잘못된 비밀번호입니다.");
         }
 
         return new UserResponseDto(user);
@@ -56,11 +50,7 @@ public class UserService {
     //특정 유저 조회
     public UserResponseDto findById(Long id) {
 
-        User user = userRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Dose not exists id = " + id
-                ));
+        User user = userRepository.findByIdOrElseThrow(id);
 
         return new UserResponseDto(user);
     }
@@ -68,12 +58,7 @@ public class UserService {
     //유저 정보 수정
     public UserResponseDto update(Long id, UserRequestDto requestDto) {
 
-        User user = userRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Does not exists id = " + id
-                )
-        );
+        User user = userRepository.findByIdOrElseThrow(id);
 
         user.update(requestDto);
         userRepository.save(user);
@@ -84,12 +69,7 @@ public class UserService {
     //유저 삭제
     public void delete(Long id) {
 
-        User user = userRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Does not exists id = " + id
-                )
-        );
+        User user = userRepository.findByIdOrElseThrow(id);
 
         userRepository.delete(user);
     }

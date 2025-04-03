@@ -53,9 +53,9 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findById(@PathVariable Long id) {
 
-        UserResponseDto findedById = userService.findById(id);
+        UserResponseDto findById = userService.findById(id);
 
-        return new ResponseEntity<>(findedById, HttpStatus.OK);
+        return new ResponseEntity<>(findById, HttpStatus.OK);
     }
 
     //유저 정보 수정

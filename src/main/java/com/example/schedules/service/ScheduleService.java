@@ -20,10 +20,7 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
 
-    /**
-     * 할일 생성
-     * user 레파지토리를 통해 등록되어있는 유저인지 검증 후 등록되지 않는 회원이라면 로그인 유도
-     */
+    //할일 생성
     public ScheduleResponseDto save(ScheduleRequestDto requestDto) {
 
         User findUser = userRepository.findByIdOrElseThrow(requestDto.getUserId());
@@ -46,11 +43,7 @@ public class ScheduleService {
 
     //특정 id로 조회
     public ScheduleResponseDto findById(Long id) {
-        Schedule findSchedule = scheduleRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Does not exists id = " + id
-                ));
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
 
         return new ScheduleResponseDto(findSchedule);
     }
@@ -58,12 +51,7 @@ public class ScheduleService {
     //할일 수정
     public ScheduleResponseDto update(Long id, ScheduleRequestDto requestDto) {
 
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Does not exists id = " + id
-                )
-        );
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
 
         schedule.update(requestDto);
         scheduleRepository.save(schedule);
@@ -73,12 +61,7 @@ public class ScheduleService {
 
     //할일 삭제
     public void delete(Long id) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Does not exists id = " + id
-                )
-        );
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(id);
 
         scheduleRepository.delete(schedule);
     }
