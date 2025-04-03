@@ -29,3 +29,5 @@ ERD
 
 <img width="920" alt="schedules ERD" src="https://github.com/user-attachments/assets/6249c5d5-2618-4586-a51d-ae4431e31460" />
 
+트러블슈팅
+> https://velog.io/@w0729/%EC%9D%BC%EC%A0%95%EA%B4%80%EB%A6%AC-API-%EB%A7%8C%EB%93%A4%EA%B8%B0-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85
