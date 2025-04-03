@@ -32,6 +32,7 @@ public class UserService {
 
         User user = userRepository.findByEmailOrElseThrow(requestDto.getEmail());
 
+        //비밀번호 오류시 예외처리
         if (!user.getPassword().equals(requestDto.getPassword())) {
             throw new InvalidPasswordException("잘못된 비밀번호입니다.");
         }

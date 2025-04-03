@@ -7,6 +7,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
+    //id값 확인
     default Schedule findByIdOrElseThrow(Long id) {
         return findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 아이디입니다")

@@ -18,8 +18,6 @@ public class LoginFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String requestURI = httpRequest.getRequestURI();
 
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-
         if (isNotWhiteList(requestURI)) {
 
             HttpSession session = httpRequest.getSession(false);
