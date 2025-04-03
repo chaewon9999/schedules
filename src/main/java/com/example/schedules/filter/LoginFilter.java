@@ -4,6 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.PatternMatchUtils;
 
 import java.io.IOException;
@@ -22,8 +23,17 @@ public class LoginFilter implements Filter {
 
             HttpSession session = httpRequest.getSession(false);
 
+            //로그인이 안되어있을시 예외 처리
             if (session == null || session.getAttribute("userId") == null) {
-                throw new RuntimeException("로그인 해주세요");
+
+                HttpServletResponse httpResponse = (HttpServletResponse) response;
+                httpResponse.setStatus(401);
+                httpResponse.setContentType("application/json");
+                httpResponse.setCharacterEncoding("UTF-8");
+
+                String message = "로그인이 필요합니다.";
+                httpResponse.getWriter().write(message);
+                return;
             }
         }
 
@@ -33,4 +43,5 @@ public class LoginFilter implements Filter {
     private boolean isNotWhiteList(String requestURI) {
         return !PatternMatchUtils.simpleMatch(WHITE_LIST, requestURI);
     }
+
 }
