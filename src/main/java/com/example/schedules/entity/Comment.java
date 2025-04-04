@@ -36,7 +36,7 @@ public class Comment extends LocalTimeEntity{
 
     }
 
-    public Comment update(CommentRequestDto requestDto) {
+    public void update(CommentRequestDto requestDto) {
         this.comment = requestDto.getComment();
     }
 }

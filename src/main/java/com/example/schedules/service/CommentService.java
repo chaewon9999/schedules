@@ -54,8 +54,11 @@ public class CommentService {
     public CommentResponseDto update(Long id, CommentRequestDto requestDto) {
 
         Comment comment = commentRepository.findByIdOrElseThrow(id);
-        Comment update = comment.update(requestDto);
-        return new CommentResponseDto(update);
+
+        comment.update(requestDto);
+        commentRepository.save(comment);
+
+        return new CommentResponseDto(comment);
     }
 
     public void delete(Long id) {
