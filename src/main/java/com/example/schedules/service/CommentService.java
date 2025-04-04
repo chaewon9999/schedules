@@ -11,6 +11,9 @@ import com.example.schedules.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -32,5 +35,19 @@ public class CommentService {
         Comment savedComment = commentRepository.save(comment);
 
         return new CommentResponseDto(savedComment);
+    }
+
+    public List<CommentResponseDto> findAll() {
+        return commentRepository.findAll()
+                .stream()
+                .map(CommentResponseDto::allDto)
+                .toList();
+    }
+
+    public CommentResponseDto findById(Long id) {
+
+        Comment comment = commentRepository.findByIdOrElseThrow(id);
+
+        return new CommentResponseDto(comment);
     }
 }

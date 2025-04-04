@@ -1,6 +1,8 @@
 package com.example.schedules.dto.comment;
 
+import com.example.schedules.dto.schedule.ScheduleResponseDto;
 import com.example.schedules.entity.Comment;
+import com.example.schedules.entity.Schedule;
 import lombok.Getter;
 
 @Getter
@@ -19,5 +21,9 @@ public class CommentResponseDto {
         this.comment = comment.getComment();
         this.userid = comment.getUser().getId();
         this.scheduleid = comment.getSchedule().getId();
+    }
+
+    public static CommentResponseDto allDto(Comment comment) {
+        return new CommentResponseDto(comment);
     }
 }
