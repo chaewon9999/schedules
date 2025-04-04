@@ -4,7 +4,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.HttpStatus;
 import org.springframework.util.PatternMatchUtils;
 
 import java.io.IOException;
@@ -31,8 +30,7 @@ public class LoginFilter implements Filter {
                 httpResponse.setContentType("application/json");
                 httpResponse.setCharacterEncoding("UTF-8");
 
-                String message = "로그인이 필요합니다.";
-                httpResponse.getWriter().write(message);
+                httpResponse.getWriter().write("로그인이 필요합니다.");
                 return;
             }
         }

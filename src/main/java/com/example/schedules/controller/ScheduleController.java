@@ -45,7 +45,7 @@ public class ScheduleController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    //특정 id 수정
+    //특정 일정 수정
     @PutMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> update(@PathVariable Long id, @Valid @RequestBody ScheduleRequestDto requestDto) {
 

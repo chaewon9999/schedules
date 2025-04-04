@@ -1,5 +1,6 @@
 package com.example.schedules.service;
 
+import com.example.schedules.config.PasswordEncode;
 import com.example.schedules.dto.user.LoginRequestDto;
 import com.example.schedules.dto.user.UserRequestDto;
 import com.example.schedules.dto.user.UserResponseDto;
@@ -17,10 +18,14 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final PasswordEncode passwordEncode;
+
     //유저 생성
     public UserResponseDto signUp(UserRequestDto requestDto) {
 
-        User user = new User(requestDto);
+        String encodedPassword = passwordEncode.encode(requestDto.getPassword());
+
+        User user = new User(requestDto, encodedPassword);
 
         User savedUser = userRepository.save(user);
 
@@ -33,7 +38,7 @@ public class UserService {
         User user = userRepository.findByEmailOrElseThrow(requestDto.getEmail());
 
         //비밀번호 오류시 예외처리
-        if (!user.getPassword().equals(requestDto.getPassword())) {
+        if (!passwordEncode.matches(requestDto.getPassword(), user.getPassword())) {
             throw new InvalidPasswordException("잘못된 비밀번호입니다.");
         }
 
@@ -61,7 +66,9 @@ public class UserService {
 
         User user = userRepository.findByIdOrElseThrow(id);
 
-        user.update(requestDto);
+        String encodedPassword = passwordEncode.encode(requestDto.getPassword());
+
+        user.update(requestDto,encodedPassword);
         userRepository.save(user);
 
         return new UserResponseDto(user);
