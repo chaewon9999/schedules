@@ -50,4 +50,16 @@ public class CommentService {
 
         return new CommentResponseDto(comment);
     }
+
+    public CommentResponseDto update(Long id, CommentRequestDto requestDto) {
+
+        Comment comment = commentRepository.findByIdOrElseThrow(id);
+        Comment update = comment.update(requestDto);
+        return new CommentResponseDto(update);
+    }
+
+    public void delete(Long id) {
+        Comment comment = commentRepository.findByIdOrElseThrow(id);
+        commentRepository.delete(comment);
+    }
 }

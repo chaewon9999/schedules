@@ -41,4 +41,18 @@ public class CommentController {
 
         return new ResponseEntity<>(findedById, HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CommentResponseDto> update(@PathVariable Long id, @RequestBody CommentRequestDto requestDto) {
+
+        CommentResponseDto update = commentService.update(id, requestDto);
+
+        return new ResponseEntity<>(update, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+
+        commentService.delete(id);
+    }
 }
