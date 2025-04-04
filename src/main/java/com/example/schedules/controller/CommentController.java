@@ -26,6 +26,7 @@ public class CommentController {
         return new ResponseEntity<>(commentResponseDto, HttpStatus.CREATED);
     }
 
+    //전체 댓글 조회
     @GetMapping
     public ResponseEntity<List<CommentResponseDto>> findAll() {
 
@@ -34,6 +35,7 @@ public class CommentController {
         return new ResponseEntity<>(findedAll, HttpStatus.OK);
     }
 
+    //특정 댓글 조회
     @GetMapping("/{id}")
     public ResponseEntity<CommentResponseDto> findById(@PathVariable Long id) {
 
@@ -42,6 +44,7 @@ public class CommentController {
         return new ResponseEntity<>(findedById, HttpStatus.OK);
     }
 
+    //댓글 수정
     @PutMapping("/{id}")
     public ResponseEntity<CommentResponseDto> update(@PathVariable Long id, @RequestBody CommentRequestDto requestDto) {
 
@@ -50,6 +53,7 @@ public class CommentController {
         return new ResponseEntity<>(update, HttpStatus.OK);
     }
 
+    //댓글 삭제
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
 

@@ -1,7 +1,6 @@
 package com.example.schedules.entity;
 
 import com.example.schedules.dto.user.UserRequestDto;
-import com.example.schedules.dto.user.UserResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 

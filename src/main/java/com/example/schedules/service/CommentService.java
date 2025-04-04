@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +21,7 @@ public class CommentService {
     private final UserRepository userRepository;
     private final ScheduleRepository scheduleRepository;
 
+    //댓글 생성
     public CommentResponseDto create(CommentRequestDto requestDto) {
 
         User user = userRepository.findByIdOrElseThrow(requestDto.getUserId());
@@ -37,6 +37,7 @@ public class CommentService {
         return new CommentResponseDto(savedComment);
     }
 
+    //댓글 전체 조회
     public List<CommentResponseDto> findAll() {
         return commentRepository.findAll()
                 .stream()
@@ -44,6 +45,7 @@ public class CommentService {
                 .toList();
     }
 
+    //특정 댓글 조회
     public CommentResponseDto findById(Long id) {
 
         Comment comment = commentRepository.findByIdOrElseThrow(id);
@@ -51,6 +53,7 @@ public class CommentService {
         return new CommentResponseDto(comment);
     }
 
+    //댓글 수정
     public CommentResponseDto update(Long id, CommentRequestDto requestDto) {
 
         Comment comment = commentRepository.findByIdOrElseThrow(id);
@@ -61,6 +64,7 @@ public class CommentService {
         return new CommentResponseDto(comment);
     }
 
+    //댓글 삭제
     public void delete(Long id) {
         Comment comment = commentRepository.findByIdOrElseThrow(id);
         commentRepository.delete(comment);

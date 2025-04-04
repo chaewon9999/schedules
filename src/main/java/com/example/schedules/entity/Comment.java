@@ -27,13 +27,12 @@ public class Comment extends LocalTimeEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Comment() {
+
+    }
 
     public Comment(CommentRequestDto requestDto) {
         this.comment = requestDto.getComment();
-    }
-
-    public Comment() {
-
     }
 
     public void update(CommentRequestDto requestDto) {
