@@ -8,7 +8,7 @@
 
 ## API 명세서
 
-> https://www.notion.so/API-1c72e791318280ca887ff79ca1adeffb
+> [https://www.notion.so/API-1c72e791318280ca887ff79ca1adeffb](https://enormous-bulb-9f6.notion.site/API-1c72e791318280ca887ff79ca1adeffb)
 
 ## ERD
 
