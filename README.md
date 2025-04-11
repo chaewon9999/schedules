@@ -8,7 +8,7 @@
 
 ## API 명세서
 
-https://documenter.getpostman.com/view/43187382/2sB2cU9Mnd
+> https://www.notion.so/API-1c72e791318280ca887ff79ca1adeffb
 
 ## ERD
 
@@ -80,54 +80,17 @@ https://documenter.getpostman.com/view/43187382/2sB2cU9Mnd
 
 <br/>
 
-# 4. Development Workflow (개발 워크플로우)
 
-## 브랜치 전략 (Branch Strategy)
+# 4. 트러블 슈팅
 
-적절한 클래스 사용과 다양한 메소드 활용이 주목적이기에 빠르게 수정 가능한
-직접적인 Main Branch을 바로 사용했습니다.
-
-## 블록 구문
-
-한 줄짜리 블록일 경우라도 {}를 생략하지 않고, 명확히 줄 바꿈 하여 사용한다
-
-```
-if (session != null) {
-     session.invalidate();
-}
-```
-
-<br/>
-<br/>   
-카멜 표기법을 이용하여 가독성을 향상시켰다.
-
-```
-private final UserRepository userRepository;
-private final PasswordEncoder passwordEncoder;
-
-```
-
-<br/>
-
-## 메소드 네이밍
-
-메소드 작성 시 아래 네이밍 규칙을 준수하여 의미 전달을 명확하게 한다.<br/>
-메소드명이 길어지더라도 의미 전달의 명확성에 목적을 두어 작성한다.<br/>
-
-```
-public class PasswordEqualsCheckException extends RuntimeException
-```
-
-# 5. 트러블 슈팅
-
-https://computerreport.tistory.com/86
+[https://computerreport.tistory.com/86](https://velog.io/@w0729/%EC%9D%BC%EC%A0%95%EA%B4%80%EB%A6%AC-API-%EB%A7%8C%EB%93%A4%EA%B8%B0-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85)
 
 # 6. 수행 결과
 
 ## 1.Todo 항목 생성
 
 ```
-POST /todos
+POST /schedules
 Body: {
     "title":"할일 제목",
     "contents":"할일 내용"
@@ -139,7 +102,7 @@ Body: {
 ## 2.Todo 전체 항목 조회
 
 ```
-GET /todos/{id}
+GET /schedules
 ```
 
 <br/>
@@ -147,7 +110,7 @@ GET /todos/{id}
 ## 3.Todo 선택 조회
 
 ```
-GET /todos/{ID}
+GET /schedules/{id}
 ```
 
 <br/>
@@ -155,7 +118,7 @@ GET /todos/{ID}
 ## 4.Todo 수정
 
 ```
-PATCH /todos/{id}
+PUT /schedules/{id}
 Body: {
     "title":"수정",
     "contents":"수정 내용"
@@ -167,7 +130,7 @@ Body: {
 ## 5.Todo 항목 삭제
 
 ```
-DELETE /todos/{id}
+DELETE /schedules/{id}
 ```
 
 <br/>
@@ -204,9 +167,10 @@ GET /users/{id}
 ## 9.유저 수정
 
 ```
-PATCH /users/{id}
+PUT /users/{id}
 Body:{
-    "title":"제목 수정"
+    "name":"이름 수정"
+    "password":"비밀번호"
     "email":"이메일 수정"
 }
 ```
@@ -224,7 +188,7 @@ DELETE /users/{id}
 ## 11.로그인
 
 ```
-POST /session-login
+POST /users/login
 Body:{
     "email" : "kob882333@naver.com",
     "password" : "12345678"
@@ -236,14 +200,6 @@ Body:{
 ## 12.로그아웃
 
 ```
-POST /session-logout
-```
-
-<br/>
-
-## 13.이메일 중복확인
-
-```
-GET /check?email={email}
+POST /users/logout
 ```
 
